@@ -1,4 +1,10 @@
 {
+  "AllegroFlare/TileMaps/TileMap": [
+    "AlphaMesh/AlphaMesh"
+  ],
+  "ALLEGRO_BITMAP": [
+    "AlphaMesh/AlphaMesh"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "AlphaMesh/Game/Configurations/Main"
   ],
