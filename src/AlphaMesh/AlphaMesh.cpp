@@ -11,7 +11,12 @@ namespace AlphaMesh
 {
 
 
-AlphaMesh::AlphaMesh()
+AlphaMesh::AlphaMesh(ALLEGRO_BITMAP* bitmap, int num_rows, int num_columns)
+   : bitmap(bitmap)
+   , num_rows(num_rows)
+   , num_columns(num_columns)
+   , cell_width_in_pixels(0.0f)
+   , cell_height_in_pixels(0.0f)
 {
 }
 
@@ -34,28 +39,28 @@ bool AlphaMesh::area_contains_no_pixels(ALLEGRO_BITMAP* bitmap, int x, int y, in
    return true;
 }
 
-AllegroFlare::TileMaps::TileMap<bool> AlphaMesh::process(ALLEGRO_BITMAP* bitmap, int num_rows, int num_columns)
+AllegroFlare::TileMaps::TileMap<bool> AlphaMesh::build_tile_mask()
 {
    if (!(bitmap))
    {
       std::stringstream error_message;
-      error_message << "[AlphaMesh::AlphaMesh::process]: error: guard \"bitmap\" not met.";
+      error_message << "[AlphaMesh::AlphaMesh::build_tile_mask]: error: guard \"bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AlphaMesh::AlphaMesh::process]: error: guard \"bitmap\" not met");
+      throw std::runtime_error("[AlphaMesh::AlphaMesh::build_tile_mask]: error: guard \"bitmap\" not met");
    }
    if (!((num_rows >= 2)))
    {
       std::stringstream error_message;
-      error_message << "[AlphaMesh::AlphaMesh::process]: error: guard \"(num_rows >= 2)\" not met.";
+      error_message << "[AlphaMesh::AlphaMesh::build_tile_mask]: error: guard \"(num_rows >= 2)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AlphaMesh::AlphaMesh::process]: error: guard \"(num_rows >= 2)\" not met");
+      throw std::runtime_error("[AlphaMesh::AlphaMesh::build_tile_mask]: error: guard \"(num_rows >= 2)\" not met");
    }
    if (!((num_columns >= 2)))
    {
       std::stringstream error_message;
-      error_message << "[AlphaMesh::AlphaMesh::process]: error: guard \"(num_columns >= 2)\" not met.";
+      error_message << "[AlphaMesh::AlphaMesh::build_tile_mask]: error: guard \"(num_columns >= 2)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AlphaMesh::AlphaMesh::process]: error: guard \"(num_columns >= 2)\" not met");
+      throw std::runtime_error("[AlphaMesh::AlphaMesh::build_tile_mask]: error: guard \"(num_columns >= 2)\" not met");
    }
    AllegroFlare::TileMaps::TileMap<bool> result;
    result.resize(num_columns, num_rows);
@@ -63,11 +68,8 @@ AllegroFlare::TileMaps::TileMap<bool> AlphaMesh::process(ALLEGRO_BITMAP* bitmap,
 
    int bitmap_width = al_get_bitmap_width(bitmap);
    int bitmap_height = al_get_bitmap_height(bitmap);
-   float cell_width_in_pixels = (float)bitmap_width / num_columns;
-   float cell_height_in_pixels = (float)bitmap_height / num_rows;
-
-   //int cell_width_in_pixels = bitmap_width / num_columns;
-   //int cell_height_in_pixels = bitmap_height / num_rows;
+   cell_width_in_pixels = (float)bitmap_width / num_columns;
+   cell_height_in_pixels = (float)bitmap_height / num_rows;
 
    // TODO: Ensure there are no "remainder" pixels
 
@@ -83,10 +85,10 @@ AllegroFlare::TileMaps::TileMap<bool> AlphaMesh::process(ALLEGRO_BITMAP* bitmap,
 
          bool is_empty = area_contains_no_pixels(
             bitmap,
-            (int)x_pos,
+            (int)x_pos, // TODO: Convert to float argument
             (int)y_pos,
-            cell_width_in_pixels+1,
-            cell_height_in_pixels+1
+            (int)cell_width_in_pixels+1, // TODO: See if/when +1 is necessary
+            (int)cell_height_in_pixels+1 // TODO: See if/when +1 is necessary
          );
 
          result.set_tile(tile_x, tile_y, !is_empty);

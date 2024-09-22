@@ -68,7 +68,29 @@ table td
     <h3 id="quintessence/AlphaMesh/AlphaMesh.q.yml">quintessence/AlphaMesh/AlphaMesh.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
-<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cell_width_in_pixels</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">cell_height_in_pixels</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">bool</td>
@@ -76,7 +98,7 @@ table td
 </tr>
 <tr>
   <td class="method">AllegroFlare::TileMaps::TileMap&lt;bool&gt;</td>
-  <td class="method"><b>process</b>(ALLEGRO_BITMAP* bitmap=nullptr, int num_rows=16, int num_columns=16)</td>
+  <td class="method"><b>build_tile_mask</b>()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
