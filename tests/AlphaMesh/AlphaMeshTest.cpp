@@ -88,7 +88,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
    }
 
    auto mesh = alpha_mesh.build_mesh();
-   al_draw_prim(&mesh[0], nullptr, nullptr, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   al_draw_prim(&mesh[0], nullptr, bitmap, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
    al_flip_display();
    sleep_for(1);
