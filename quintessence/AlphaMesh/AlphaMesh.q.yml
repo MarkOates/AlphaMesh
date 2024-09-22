@@ -1,0 +1,39 @@
+methods:
+
+
+  - name: process
+    type: AllegroFlare::TileMaps::TileMap<bool>
+    static: true
+    parameters:
+      - name: bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: num_rows
+        type: int
+        default_argument: 16
+      - name: num_columns
+        type: int
+        default_argument: 16
+    guards: [ bitmap, (num_rows >= 2), (num_columns >= 2) ]
+    body: |
+      AllegroFlare::TileMaps::TileMap<bool> result;
+      result.resize(num_columns, num_rows);
+      result.initialize();
+
+      // HERE: process the image
+      result.set_tile(4, 6, true);
+      result.set_tile(0, 0, true);
+      result.set_tile(15, 15, true);
+
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::TileMaps::TileMap
+    headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+
+

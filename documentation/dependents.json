@@ -1,0 +1,116 @@
+{
+  "AllegroFlare/GameConfigurations/Complete": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Levels/Base": [
+    "AlphaMesh/Game/Configurations/Main",
+    "AlphaMesh/Gameplay/Level"
+  ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeBankFactory": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/Wait": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ExitProgram": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AlphaMesh/Gameplay/Level": [
+    "AlphaMesh/Game/Configurations/Main",
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/Achievement": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Elements/StoryboardPages/Base": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/GameSession": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/GameProgressAndStateInfos/Base": [
+    "AlphaMesh/Game/Configurations/Main",
+    "AlphaMesh/GameProgressAndStateInfo"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AlphaMesh/Gameplay/Screen": [
+    "AlphaMesh/Game/Configurations/Main",
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/Screens/Gameplay": [
+    "AlphaMesh/Game/Configurations/Main",
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/Runners/Complete": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/AudioController": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/EventNames": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/GameEventDatas/AchievementUnlocked": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/GameEvent": [
+    "AlphaMesh/Game/Configurations/Main",
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/Screens/PauseScreen": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Screens/Subscreen/Screen": [
+    "AlphaMesh/Game/Configurations/Main"
+  ],
+  "AlphaMesh/JSONLoaders/AlphaMesh/GameProgressAndStateInfo": [
+    "AlphaMesh/GameProgressAndStateInfo"
+  ],
+  "ALLEGRO_FONT": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "ALLEGRO_EVENT": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/FontBin": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/ModelBin": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "al_is_primitives_addon_initialized": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/Player": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/VirtualControllers/GenericController": [
+    "AlphaMesh/Gameplay/Screen"
+  ],
+  "AllegroFlare/AssetStudio/Database": [
+    "AlphaMesh/Gameplay/Screen"
+  ]
+}
