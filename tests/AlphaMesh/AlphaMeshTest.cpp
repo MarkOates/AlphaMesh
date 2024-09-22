@@ -49,8 +49,8 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
    draw_crosshair(0, bitmap_height);
 
    // Draw the alpha coverage
-   int cell_width_in_pixels = bitmap_width / num_columns;
-   int cell_height_in_pixels = bitmap_height / num_rows;
+   float cell_width_in_pixels = (float)bitmap_width / num_columns;
+   float cell_height_in_pixels = (float)bitmap_height / num_rows;
    ALLEGRO_COLOR hit = al_color_html("03a889");
    float op = 0.4;
    hit.r *= op;

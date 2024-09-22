@@ -53,9 +53,11 @@ methods:
 
       int bitmap_width = al_get_bitmap_width(bitmap);
       int bitmap_height = al_get_bitmap_height(bitmap);
+      float cell_width_in_pixels = (float)bitmap_width / num_columns;
+      float cell_height_in_pixels = (float)bitmap_height / num_rows;
 
-      int cell_width_in_pixels = bitmap_width / num_columns;
-      int cell_height_in_pixels = bitmap_height / num_rows;
+      //int cell_width_in_pixels = bitmap_width / num_columns;
+      //int cell_height_in_pixels = bitmap_height / num_rows;
 
       // TODO: Ensure there are no "remainder" pixels
 
@@ -66,15 +68,15 @@ methods:
       {
          for (int tile_x=0; tile_x<num_columns; tile_x++)
          {
-            int x_pos = tile_x * cell_width_in_pixels;
-            int y_pos = tile_y * cell_height_in_pixels;
+            float x_pos = tile_x * cell_width_in_pixels;
+            float y_pos = tile_y * cell_height_in_pixels;
 
             bool is_empty = area_contains_no_pixels(
                bitmap,
-               x_pos,
-               y_pos,
-               cell_width_in_pixels,
-               cell_height_in_pixels
+               (int)x_pos,
+               (int)y_pos,
+               cell_width_in_pixels+1,
+               cell_height_in_pixels+1
             );
 
             result.set_tile(tile_x, tile_y, !is_empty);
