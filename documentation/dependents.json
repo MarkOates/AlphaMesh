@@ -5,6 +5,9 @@
   "ALLEGRO_BITMAP": [
     "AlphaMesh/AlphaMesh"
   ],
+  "ALLEGRO_VERTEX": [
+    "AlphaMesh/AlphaMesh"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "AlphaMesh/Game/Configurations/Main"
   ],

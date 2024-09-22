@@ -105,6 +105,14 @@ table td
   <td class="method"><b>area_contains_no_pixels</b>(ALLEGRO_BITMAP* bitmap=nullptr, int x=0, int y=0, int w=0, int h=0)</td>
 </tr>
 <tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>assemble_quad</b>(float x=0, float y=0, float x2=0, float y2=0)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_mesh</b>()</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::TileMaps::TileMap&lt;bool&gt;</td>
   <td class="method"><b>build_tile_mask</b>()</td>
 </tr>
@@ -116,6 +124,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -549,6 +560,9 @@ table td
     "AlphaMesh/AlphaMesh"
   ],
   "ALLEGRO_BITMAP": [
+    "AlphaMesh/AlphaMesh"
+  ],
+  "ALLEGRO_VERTEX": [
     "AlphaMesh/AlphaMesh"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
