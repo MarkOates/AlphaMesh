@@ -37,6 +37,13 @@ properties:
     getter: true
 
 
+documentation:
+
+
+  - todos:
+      - next steps, add some functions same as assemble_quad that some vertex count optimization alternatives.
+
+
 methods:
 
 

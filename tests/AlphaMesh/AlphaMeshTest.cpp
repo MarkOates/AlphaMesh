@@ -23,8 +23,8 @@ TEST_F(AlphaMesh_AlphaMeshTest, can_be_created_without_blowing_up)
 TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
    CAPTURE__build_tile_mask__will_produce_a_tile_map_of_alpha_coverage_area)
 {
-   int num_rows = 32;
-   int num_columns = 16;
+   int num_rows = 64;
+   int num_columns = 32;
    ALLEGRO_BITMAP *bitmap = get_bitmap_bin_ref()["investigator-01.png"];
    AlphaMesh::AlphaMesh alpha_mesh(bitmap, num_rows, num_columns);
 
