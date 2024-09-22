@@ -15,14 +15,40 @@ AlphaMesh::AlphaMesh(ALLEGRO_BITMAP* bitmap, int num_rows, int num_columns)
    : bitmap(bitmap)
    , num_rows(num_rows)
    , num_columns(num_columns)
-   , cell_width_in_pixels(0.0f)
-   , cell_height_in_pixels(0.0f)
+   , width(0)
+   , height(0)
+   , cell_width(0.0f)
+   , cell_height(0.0f)
 {
 }
 
 
 AlphaMesh::~AlphaMesh()
 {
+}
+
+
+int AlphaMesh::get_width() const
+{
+   return width;
+}
+
+
+int AlphaMesh::get_height() const
+{
+   return height;
+}
+
+
+float AlphaMesh::get_cell_width() const
+{
+   return cell_width;
+}
+
+
+float AlphaMesh::get_cell_height() const
+{
+   return cell_height;
 }
 
 
@@ -66,10 +92,10 @@ AllegroFlare::TileMaps::TileMap<bool> AlphaMesh::build_tile_mask()
    result.resize(num_columns, num_rows);
    result.initialize();
 
-   int bitmap_width = al_get_bitmap_width(bitmap);
-   int bitmap_height = al_get_bitmap_height(bitmap);
-   cell_width_in_pixels = (float)bitmap_width / num_columns;
-   cell_height_in_pixels = (float)bitmap_height / num_rows;
+   int width = al_get_bitmap_width(bitmap);
+   int height = al_get_bitmap_height(bitmap);
+   cell_width = (float)width / num_columns;
+   cell_height = (float)height / num_rows;
 
    // TODO: Ensure there are no "remainder" pixels
 
@@ -80,15 +106,15 @@ AllegroFlare::TileMaps::TileMap<bool> AlphaMesh::build_tile_mask()
    {
       for (int tile_x=0; tile_x<num_columns; tile_x++)
       {
-         float x_pos = tile_x * cell_width_in_pixels;
-         float y_pos = tile_y * cell_height_in_pixels;
+         float x_pos = tile_x * cell_width;
+         float y_pos = tile_y * cell_height;
 
          bool is_empty = area_contains_no_pixels(
             bitmap,
             (int)x_pos, // TODO: Convert to float argument
             (int)y_pos,
-            (int)cell_width_in_pixels+1, // TODO: See if/when +1 is necessary
-            (int)cell_height_in_pixels+1 // TODO: See if/when +1 is necessary
+            (int)cell_width+1, // TODO: See if/when +1 is necessary
+            (int)cell_height+1 // TODO: See if/when +1 is necessary
          );
 
          result.set_tile(tile_x, tile_y, !is_empty);
