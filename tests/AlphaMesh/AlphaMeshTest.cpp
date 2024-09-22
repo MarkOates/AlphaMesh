@@ -90,6 +90,9 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
    auto mesh = alpha_mesh.build_mesh();
    al_draw_prim(&mesh[0], nullptr, bitmap, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
+   ALLEGRO_FONT *font = get_any_font();
+   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12, 0, "vertices: %d", mesh.size());
+
    al_flip_display();
    sleep_for(1);
 }
