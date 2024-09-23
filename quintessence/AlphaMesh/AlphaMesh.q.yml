@@ -387,11 +387,11 @@ methods:
 
             if (close_rectangle_horizontally)
             {
-               // HERE: Attempt to build a larger quad by moving down
-               ///*
-               bool should_collapse_down = false; //all_cells_directly_below_are_solid(
-               //do
-               //{
+               // Attempt to build a larger quad by moving down
+               bool should_collapse_down = false;
+
+               do
+               {
                   should_collapse_down = all_cells_directly_below_are_solid(
                      rect_row1,
                      rect_column1,
@@ -401,48 +401,30 @@ methods:
                   );
 
                   if (should_collapse_down)
-                  //if (false)
                   {
-                     //// Set all the cells below as not filled
+                     // Set all the cells below as not filled
                      int next_row = rect_row2+1;
                      for (int column=rect_column1; column<=rect_column2; column++)
                      {
                         tile_mask.set_tile(column, next_row, false);
                      }
 
-                   rect_row2++;
+                     rect_row2++;
                      // Extend the rect_x2, rect_y2 by the height
-                     //float x2 = (column+1) * cell_width;
-                   float y2 = (rect_row2+1) * cell_height;
-                     //rect_x2 = x2;
-                   rect_y2 = y2;
-                     //rect_column2 = column;
-                     //rect_row2 = row;
-
-                     std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
-                     result.insert(result.end(), quad.begin(), quad.end());
-                     state_assembling_rectangle = false;
+                     float y2 = (rect_row2+1) * cell_height;
+                     rect_y2 = y2;
                   }
                   else
                   {
-                     std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
-                     result.insert(result.end(), quad.begin(), quad.end());
-                     state_assembling_rectangle = false;
+                     // Do nothing, will break out of loop
                   }
-               //} while(should_collapse_down);
-               //*/
+               } while(should_collapse_down);
 
-               // Reset
-               //rect_row1,
-               //rect_column1,
-               //rect_row2,
-               //rect_column2,
-
+               std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
+               result.insert(result.end(), quad.begin(), quad.end());
                state_assembling_rectangle = false;
 
-               //std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
-               //result.insert(result.end(), quad.begin(), quad.end());
-               //state_assembling_rectangle = false;
+               state_assembling_rectangle = false;
             }
          }
       }
