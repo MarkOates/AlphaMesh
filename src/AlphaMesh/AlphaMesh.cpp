@@ -132,20 +132,17 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__run_length_encoding_by_rows()
    float rect_y1 = 0;
    float rect_x2 = 0;
    float rect_y2 = 0;
-   //bool close_rectangle = false;
    bool state_assembling_rectangle = false;
 
    for (int row=0; row<tile_mask.get_num_rows(); row++)
    {
       state_assembling_rectangle = false;
-      //close_rectangle = false;
 
       for (int column=0; column<tile_mask.get_num_columns(); column++)
       {
          bool at_last_column = (column == tile_mask.get_num_columns() - 1);
          bool is_solid = tile_mask.get_tile(column, row);
          bool close_rectangle = false;
-         //bool state_assembling_rectangle = false;
 
          if (is_solid)
          {
@@ -181,9 +178,7 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__run_length_encoding_by_rows()
 
          if (close_rectangle)
          {
-            //std::cout << "HERE" << std::endl;
             std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
-            std::cout << "HERE: quad: " << quad[0].x << ", " << quad[0].y << std::endl;
             result.insert(result.end(), quad.begin(), quad.end());
             state_assembling_rectangle = false;
          }
