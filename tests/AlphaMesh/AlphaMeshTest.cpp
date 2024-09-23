@@ -226,7 +226,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
 
 
 TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
-   FOCUS__all_cells_directly_below_are_solid__will_return_true_when_cells_below_are_solid)
+   all_cells_directly_below_are_solid__will_return_true_when_cells_below_are_solid)
 {
    AllegroFlare::TileMaps::TileMap<bool> tile_mask;
    tile_mask.resize_with_fill(5, 3, false);
@@ -241,7 +241,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
 
 
 TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
-   FOCUS__all_cells_directly_below_are_solid__will_return_false_when_cells_below_are_solid)
+   all_cells_directly_below_are_solid__will_return_false_when_cells_below_are_solid)
 {
    AllegroFlare::TileMaps::TileMap<bool> tile_mask;
    tile_mask.resize_with_fill(5, 3, false);
@@ -256,7 +256,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
 
 
 TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
-   FOCUS__all_cells_directly_below_are_solid__will_return_false_when_provided_cells_are_on_the_last_row)
+   all_cells_directly_below_are_solid__will_return_false_when_provided_cells_are_on_the_last_row)
 {
    AllegroFlare::TileMaps::TileMap<bool> tile_mask;
    tile_mask.resize_with_fill(5, 3, false);
@@ -272,7 +272,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
 
 
 TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
-   CAPTURE__build_mesh__collapse_columns_rows___will_produce_an_optimized_mesh)
+   FOCUS__CAPTURE__build_mesh__collapse_columns_rows___will_produce_an_optimized_mesh)
 {
    int num_rows = 32;
    int num_columns = 16;

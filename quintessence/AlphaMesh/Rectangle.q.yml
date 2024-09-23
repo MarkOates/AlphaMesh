@@ -1,0 +1,34 @@
+properties:
+
+
+  - name: x1
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: y1
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: x2
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: y2
+    type: int
+    init_with: 0
+    exposed: true
+
+
+
+methods:
+
+
+  - name: run
+    type: std::string
+    body: |
+      return "Hello World!";
+
+

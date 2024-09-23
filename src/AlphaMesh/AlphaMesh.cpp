@@ -318,6 +318,13 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
                rect_column1 = column;
                rect_row1 = row;
 
+               float x2 = (column+1) * cell_width;
+               float y2 = (row+1) * cell_height;
+               rect_x2 = x2;
+               rect_y2 = y2;
+               rect_column2 = column;
+               rect_row2 = row;
+
                state_assembling_rectangle = true;
             }
             else
@@ -359,8 +366,8 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
                   &tile_mask
                );
 
-               //if (should_collapse_down)
-               if (false)
+               if (should_collapse_down)
+               //if (false)
                {
                   //// Set all the cells below as not filled
                   int next_row = rect_row2+1;
@@ -369,17 +376,18 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
                      tile_mask.set_tile(column, next_row, false);
                   }
 
-                  rect_row2++;
+                rect_row2++;
                   // Extend the rect_x2, rect_y2 by the height
                   //float x2 = (column+1) * cell_width;
-                  float y2 = (rect_row2+1) * cell_height;
+                float y2 = (rect_row2+1) * cell_height;
                   //rect_x2 = x2;
-                  rect_y2 = y2;
+                rect_y2 = y2;
                   //rect_column2 = column;
                   //rect_row2 = row;
-                  //std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
-                  //result.insert(result.end(), quad.begin(), quad.end());
-                  //state_assembling_rectangle = false;
+
+                  std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
+                  result.insert(result.end(), quad.begin(), quad.end());
+                  state_assembling_rectangle = false;
                }
                else
                {
@@ -389,6 +397,14 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
                }
             //} while(should_collapse_down);
             //*/
+
+            // Reset
+            //rect_row1,
+            //rect_column1,
+            //rect_row2,
+            //rect_column2,
+
+            state_assembling_rectangle = false;
 
             //std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
             //result.insert(result.end(), quad.begin(), quad.end());
