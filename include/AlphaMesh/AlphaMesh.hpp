@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/TileMaps/TileMap.hpp>
+#include <AlphaMesh/Rectangle.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <vector>
@@ -42,6 +43,7 @@ namespace AlphaMesh
       std::vector<ALLEGRO_VERTEX> build_mesh__run_length_encoding_by_columns();
       std::vector<ALLEGRO_VERTEX> build_mesh__collapse_columns_rows();
       std::vector<ALLEGRO_VERTEX> build_mesh__collapse_rows_columns();
+      std::vector<::AlphaMesh::Rectangle> find_rectangles();
       AllegroFlare::TileMaps::TileMap<bool> build_tile_mask();
    };
 }

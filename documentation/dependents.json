@@ -8,6 +8,9 @@
   "ALLEGRO_VERTEX": [
     "AlphaMesh/AlphaMesh"
   ],
+  ":AlphaMesh/Rectangle": [
+    "AlphaMesh/AlphaMesh"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "AlphaMesh/Game/Configurations/Main"
   ],

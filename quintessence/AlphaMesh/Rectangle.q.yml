@@ -4,21 +4,25 @@ properties:
   - name: x1
     type: int
     init_with: 0
+    constructor_arg: true
     exposed: true
 
   - name: y1
     type: int
     init_with: 0
+    constructor_arg: true
     exposed: true
 
   - name: x2
     type: int
     init_with: 0
+    constructor_arg: true
     exposed: true
 
   - name: y2
     type: int
     init_with: 0
+    constructor_arg: true
     exposed: true
 
 
