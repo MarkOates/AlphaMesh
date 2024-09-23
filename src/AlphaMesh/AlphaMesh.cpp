@@ -317,7 +317,7 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
    float rect_y1 = 0;
    float rect_x2 = 0;
    float rect_y2 = 0;
-   bool state_assembling_rectangle = false;
+   //bool state_assembling_rectangle = false;
 
    for (int row=0; row<tile_mask.get_num_rows(); row++)
    {
@@ -371,7 +371,7 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
             }
          }
 
-         if (at_last_column) close_rectangle_horizontally = true;
+         if (state_assembling_rectangle && at_last_column) close_rectangle_horizontally = true;
 
          if (close_rectangle_horizontally)
          {
@@ -392,9 +392,9 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
                {
                   // Set all the cells below as not filled
                   int next_row = rect_row2+1;
-                  for (int column=rect_column1; column<=rect_column2; column++)
+                  for (int c=rect_column1; c<=rect_column2; c++)
                   {
-                     tile_mask.set_tile(column, next_row, false);
+                     tile_mask.set_tile(c, next_row, false);
                   }
 
                   rect_row2++;
@@ -408,10 +408,9 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
                }
             } while(should_collapse_down);
 
+
             std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
             result.insert(result.end(), quad.begin(), quad.end());
-            state_assembling_rectangle = false;
-
             state_assembling_rectangle = false;
          }
       }
