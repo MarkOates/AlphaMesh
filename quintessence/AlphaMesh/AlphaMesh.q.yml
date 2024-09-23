@@ -114,6 +114,40 @@ methods:
       return true;
 
 
+  - name: all_cells_directly_right_are_solid
+    type: bool
+    static: true
+    parameters:
+      - name: rect_row1
+        type: int
+        default_argument: 0
+      - name: rect_column1
+        type: int
+        default_argument: 0
+      - name: rect_row2
+        type: int
+        default_argument: 0
+      - name: rect_column2
+        type: int
+        default_argument: 0
+      - name: tile_mask
+        type: AllegroFlare::TileMaps::TileMap<bool>*
+        default_argument: nullptr
+    guards: [ tile_mask ]
+    body: |
+      bool on_or_past_the_last_column = (rect_column2 >= tile_mask->get_num_columns() - 1);
+      if (on_or_past_the_last_column) return false;
+
+      int next_column = rect_column2+1;
+      for (int row=rect_row1; row<=rect_row2; row++)
+      {
+         bool tile_is_solid = tile_mask->get_tile(next_column, row);
+         if (!tile_is_solid) return false;
+      }
+
+      return true;
+
+
   - name: assemble_quad
     type: std::vector<ALLEGRO_VERTEX>
     static: true
@@ -450,15 +484,19 @@ methods:
       float rect_y2 = 0;
       bool state_assembling_rectangle = false;
 
-      for (int row=0; row<tile_mask.get_num_rows(); row++)
+      for (int column=0; column<tile_mask.get_num_columns(); column++)
       {
+      //for (int row=0; row<tile_mask.get_num_rows(); row++)
+      //{
          bool state_assembling_rectangle = false;
 
-         for (int column=0; column<tile_mask.get_num_columns(); column++)
+         //for (int column=0; column<tile_mask.get_num_columns(); column++)
+         //{
+         for (int row=0; row<tile_mask.get_num_rows(); row++)
          {
-            bool at_last_column = (column == tile_mask.get_num_columns() - 1);
+            bool at_last_row = (row == tile_mask.get_num_rows() - 1);
             bool is_solid = tile_mask.get_tile(column, row);
-            bool close_rectangle_horizontally = false;
+            bool close_rectangle_vertically = false;
 
             if (is_solid)
             {
@@ -494,7 +532,7 @@ methods:
             {
                if (state_assembling_rectangle)
                {
-                  close_rectangle_horizontally = true;
+                  close_rectangle_vertically = true;
                }
                else
                {
@@ -502,16 +540,16 @@ methods:
                }
             }
 
-            if (at_last_column) close_rectangle_horizontally = true;
+            if (at_last_row) close_rectangle_vertically = true;
 
-            if (close_rectangle_horizontally)
+            if (close_rectangle_vertically)
             {
                // Attempt to build a larger quad by moving down
-               bool should_collapse_down = false;
+               bool should_collapse_right = false;
 
                do
                {
-                  should_collapse_down = all_cells_directly_below_are_solid(
+                  should_collapse_right = all_cells_directly_right_are_solid(
                      rect_row1,
                      rect_column1,
                      rect_row2,
@@ -519,25 +557,26 @@ methods:
                      &tile_mask
                   );
 
-                  if (should_collapse_down)
+                  if (should_collapse_right)
                   {
+                     // HERE: Revise this:
                      // Set all the cells below as not filled
-                     int next_row = rect_row2+1;
-                     for (int column=rect_column1; column<=rect_column2; column++)
+                     int next_column = rect_column2+1;
+                     for (int row=rect_row1; row<=rect_row2; row++) //***
                      {
-                        tile_mask.set_tile(column, next_row, false);
+                        tile_mask.set_tile(next_column, row, false);
                      }
 
-                     rect_row2++;
+                     rect_column2++; //***
                      // Extend the rect_x2, rect_y2 by the height
-                     float y2 = (rect_row2+1) * cell_height;
-                     rect_y2 = y2;
+                     float x2 = (rect_column2+1) * cell_width;
+                     rect_x2 = x2;
                   }
                   else
                   {
                      // Do nothing, will break out of loop
                   }
-               } while(should_collapse_down);
+               } while(should_collapse_right);
 
                std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
                result.insert(result.end(), quad.begin(), quad.end());
