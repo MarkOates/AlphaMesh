@@ -105,6 +105,10 @@ table td
   <td class="method"><b>area_contains_no_pixels</b>(ALLEGRO_BITMAP* bitmap=nullptr, int x=0, int y=0, int w=0, int h=0)</td>
 </tr>
 <tr>
+  <td class="method">bool</td>
+  <td class="method"><b>all_cells_directly_below_are_solid</b>(int rect_row1=0, int rect_column1=0, int rect_row2=0, int rect_column2=0, AllegroFlare::TileMaps::TileMap&lt;bool&gt;* tile_mask=nullptr)</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
   <td class="method"><b>assemble_quad</b>(float x=0, float y=0, float x2=0, float y2=0)</td>
 </tr>
@@ -119,6 +123,10 @@ table td
 <tr>
   <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
   <td class="method"><b>build_mesh__run_length_encoding_by_columns</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_mesh__collapse_columns_rows</b>()</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::TileMaps::TileMap&lt;bool&gt;</td>

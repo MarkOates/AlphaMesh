@@ -80,6 +80,31 @@ methods:
       return true;
 
 
+  - name: all_cells_directly_below_are_solid
+    type: bool
+    static: true
+    parameters:
+      - name: rect_row1
+        type: int
+        default_argument: 0
+      - name: rect_column1
+        type: int
+        default_argument: 0
+      - name: rect_row2
+        type: int
+        default_argument: 0
+      - name: rect_column2
+        type: int
+        default_argument: 0
+      - name: tile_mask
+        type: AllegroFlare::TileMaps::TileMap<bool>*
+        default_argument: nullptr
+    guards: [ tile_mask ]
+    body: |
+      // TODO: This algorithm
+      return false;
+
+
   - name: assemble_quad
     type: std::vector<ALLEGRO_VERTEX>
     static: true
@@ -272,6 +297,99 @@ methods:
                std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
                result.insert(result.end(), quad.begin(), quad.end());
                state_assembling_rectangle = false;
+            }
+         }
+      }
+      
+      return result;
+
+
+  - name: build_mesh__collapse_columns_rows
+    type: std::vector<ALLEGRO_VERTEX>
+    body: |
+      AllegroFlare::TileMaps::TileMap<bool> tile_mask = build_tile_mask();
+
+      std::vector<ALLEGRO_VERTEX> result;
+
+      float rect_column1 = 0;
+      float rect_row1 = 0;
+      float rect_column2 = 0;
+      float rect_row2 = 0;
+
+      float rect_x1 = 0;
+      float rect_y1 = 0;
+      float rect_x2 = 0;
+      float rect_y2 = 0;
+      bool state_assembling_rectangle = false;
+
+      for (int row=0; row<tile_mask.get_num_rows(); row++)
+      {
+         state_assembling_rectangle = false;
+
+         for (int column=0; column<tile_mask.get_num_columns(); column++)
+         {
+            bool at_last_column = (column == tile_mask.get_num_columns() - 1);
+            bool is_solid = tile_mask.get_tile(column, row);
+            bool close_rectangle_horizontally = false;
+
+            if (is_solid)
+            {
+               if (!state_assembling_rectangle)
+               {
+                  float x1 = column * cell_width;
+                  float y1 = row * cell_height;
+                  rect_x1 = x1;
+                  rect_y1 = y1;
+                  rect_column1 = column;
+                  rect_row1 = row;
+
+                  state_assembling_rectangle = true;
+               }
+               else
+               {
+                  float x2 = (column+1) * cell_width;
+                  float y2 = (row+1) * cell_height;
+                  rect_x2 = x2;
+                  rect_y2 = y2;
+                  rect_column2 = column;
+                  rect_row2 = row;
+               }
+            }
+            else
+            {
+               if (state_assembling_rectangle)
+               {
+                  close_rectangle_horizontally = true;
+               }
+               else
+               {
+                  // Nothing to do, consecutive empty tiles
+               }
+            }
+
+            if (at_last_column) close_rectangle_horizontally = true;
+
+            if (close_rectangle_horizontally)
+            {
+               bool should_collapse_down = all_cells_directly_below_are_solid(
+                  rect_row1,
+                  rect_column1,
+                  rect_row2,
+                  rect_column2,
+                  &tile_mask
+               );
+
+               if (should_collapse_down)
+               {
+                  // Set all the cells below as not filled
+                  // Extend the rect_x2, rect_y2 by the height
+               }
+               else
+               {
+                  std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
+                  result.insert(result.end(), quad.begin(), quad.end());
+                  state_assembling_rectangle = false;
+               }
             }
          }
       }
