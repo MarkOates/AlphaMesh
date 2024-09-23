@@ -84,23 +84,12 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::assemble_quad(float x, float y, float x2,
    // Create the color once
    ALLEGRO_COLOR color = al_map_rgb(255, 255, 255);
 
-   // Bottom-left
-   result.push_back(ALLEGRO_VERTEX{x, y2, 0.0f, x, y2, color});
-
-   // Top-left
-   result.push_back(ALLEGRO_VERTEX{x, y, 0.0f, x, y, color});
-
-   // Bottom-right
-   result.push_back(ALLEGRO_VERTEX{x2, y2, 0.0f, x2, y2, color});
-
-   // Top-left (again, for the second triangle)
-   result.push_back(ALLEGRO_VERTEX{x, y, 0.0f, x, y, color});
-
-   // Bottom-right (again, for the second triangle)
-   result.push_back(ALLEGRO_VERTEX{x2, y2, 0.0f, x2, y2, color});
-
-   // Top-right
-   result.push_back(ALLEGRO_VERTEX{x2, y, 0.0f, x2, y, color});
+   result.push_back(ALLEGRO_VERTEX{x, y2, 0.0f, x, y2, color}); // bottom left
+   result.push_back(ALLEGRO_VERTEX{x, y, 0.0f, x, y, color}); // top left
+   result.push_back(ALLEGRO_VERTEX{x2, y2, 0.0f, x2, y2, color}); // bottom right
+   result.push_back(ALLEGRO_VERTEX{x, y, 0.0f, x, y, color}); // top left (for the second triangle)
+   result.push_back(ALLEGRO_VERTEX{x2, y2, 0.0f, x2, y2, color}); // bottom right (for the second triangle)
+   result.push_back(ALLEGRO_VERTEX{x2, y, 0.0f, x2, y, color}); // top right
 
    return result;
 }
