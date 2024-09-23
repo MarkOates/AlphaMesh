@@ -333,11 +333,7 @@ methods:
 
       for (int row=0; row<tile_mask.get_num_rows(); row++)
       {
-         //float rect_column1 = 0;
-         //float rect_row1 = 0;
-         //float rect_column2 = 0;
-         //float rect_row2 = 0;
-         state_assembling_rectangle = false;
+         bool state_assembling_rectangle = false;
 
          for (int column=0; column<tile_mask.get_num_columns(); column++)
          {
@@ -384,6 +380,7 @@ methods:
 
             if (close_rectangle_horizontally)
             {
+               // HERE: Attempt to build a larger quad by moving down
                ///*
                bool should_collapse_down = false; //all_cells_directly_below_are_solid(
                //do
@@ -396,7 +393,8 @@ methods:
                      &tile_mask
                   );
 
-                  if (should_collapse_down)
+                  //if (should_collapse_down)
+                  if (false)
                   {
                      //// Set all the cells below as not filled
                      int next_row = rect_row2+1;
@@ -413,9 +411,9 @@ methods:
                      rect_y2 = y2;
                      //rect_column2 = column;
                      //rect_row2 = row;
-                     std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
-                     result.insert(result.end(), quad.begin(), quad.end());
-                     state_assembling_rectangle = false;
+                     //std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
+                     //result.insert(result.end(), quad.begin(), quad.end());
+                     //state_assembling_rectangle = false;
                   }
                   else
                   {

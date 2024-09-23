@@ -1,0 +1,4 @@
+PROJECT_LIB_NAME=alpha_mesh
+VERSION_NUMBER=0.0.1wip
+#TEST_RUNNER_PROGRAM_NAME=TestRunner
+TEST_RUNNER_PROGRAM_NAME=TestRunnerWithFocusedTestPreflightCheckOrAll

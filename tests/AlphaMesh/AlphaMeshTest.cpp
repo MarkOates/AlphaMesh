@@ -226,7 +226,53 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
 
 
 TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__build_mesh__collapse_columns_rows___will_produce_an_optimized_mesh)
+   FOCUS__all_cells_directly_below_are_solid__will_return_true_when_cells_below_are_solid)
+{
+   AllegroFlare::TileMaps::TileMap<bool> tile_mask;
+   tile_mask.resize_with_fill(5, 3, false);
+   tile_mask.initialize();
+   tile_mask.fill_with_data(std::vector<std::vector<bool>>{
+      { 0, 1, 1, 1, 0 },
+      { 0, 1, 1, 1, 1 },
+      { 0, 1, 1, 0, 0 },
+   });
+   EXPECT_EQ(true, AlphaMesh::AlphaMesh::all_cells_directly_below_are_solid(0, 1, 0, 3, &tile_mask));
+}
+
+
+TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
+   FOCUS__all_cells_directly_below_are_solid__will_return_false_when_cells_below_are_solid)
+{
+   AllegroFlare::TileMaps::TileMap<bool> tile_mask;
+   tile_mask.resize_with_fill(5, 3, false);
+   tile_mask.initialize();
+   tile_mask.fill_with_data(std::vector<std::vector<bool>>{
+      { 0, 1, 1, 1, 0 },
+      { 0, 1, 1, 1, 1 },
+      { 0, 1, 1, 0, 0 },
+   });
+   EXPECT_EQ(false, AlphaMesh::AlphaMesh::all_cells_directly_below_are_solid(1, 1, 1, 3, &tile_mask));
+}
+
+
+TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
+   FOCUS__all_cells_directly_below_are_solid__will_return_false_when_provided_cells_are_on_the_last_row)
+{
+   AllegroFlare::TileMaps::TileMap<bool> tile_mask;
+   tile_mask.resize_with_fill(5, 3, false);
+   tile_mask.initialize();
+   tile_mask.fill_with_data(std::vector<std::vector<bool>>{
+      { 0, 1, 1, 1, 0 },
+      { 0, 1, 1, 1, 1 },
+      { 0, 1, 1, 0, 0 },
+   });
+   EXPECT_EQ(false, AlphaMesh::AlphaMesh::all_cells_directly_below_are_solid(1, 1, 2, 3, &tile_mask));
+}
+
+
+
+TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
+   CAPTURE__build_mesh__collapse_columns_rows___will_produce_an_optimized_mesh)
 {
    int num_rows = 32;
    int num_columns = 16;
@@ -325,5 +371,8 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
    al_flip_display();
    sleep_for(1);
 }
+
+
+
 
 
