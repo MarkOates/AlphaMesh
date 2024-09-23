@@ -480,7 +480,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
 
 
 TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
-   FOCUS__CAPTURE__build_mesh__collapse_rows_columns___will_produce_expected_triangles)
+   CAPTURE__build_mesh__collapse_rows_columns___will_produce_expected_triangles)
 {
    int num_rows = 32;
    int num_columns = 16;
@@ -522,7 +522,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
             {
                case ALLEGRO_KEY_RIGHT: {
                   start_i += 3;
-                  // Limit the start_i to the (last vertex - 3)
+                  // Limit the start_i to the last viable vertex
                   int last_viable_i = (mesh.size() - 1) - 2;
                   if (start_i > last_viable_i) start_i = last_viable_i;
                } break;
@@ -593,6 +593,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
             al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12+lh*4, 0, "  first_vertex_i: %d", start_i);
             al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12+lh*5, 0, "  last_vertex_i: %d", start_i+2);
 
+            interactive_test_render_status();
 
             al_flip_display();
          } break;
