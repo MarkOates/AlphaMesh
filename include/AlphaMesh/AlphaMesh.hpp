@@ -27,6 +27,8 @@ namespace AlphaMesh
       AlphaMesh(ALLEGRO_BITMAP* bitmap=nullptr, int num_rows=16, int num_columns=16);
       ~AlphaMesh();
 
+      int get_num_rows() const;
+      int get_num_columns() const;
       int get_width() const;
       int get_height() const;
       float get_cell_width() const;
@@ -34,6 +36,7 @@ namespace AlphaMesh
       static bool area_contains_no_pixels(ALLEGRO_BITMAP* bitmap=nullptr, int x=0, int y=0, int w=0, int h=0);
       static std::vector<ALLEGRO_VERTEX> assemble_quad(float x=0, float y=0, float x2=0, float y2=0);
       std::vector<ALLEGRO_VERTEX> build_mesh();
+      std::vector<ALLEGRO_VERTEX> build_mesh__run_length_encoding_by_rows();
       AllegroFlare::TileMaps::TileMap<bool> build_tile_mask();
    };
 }
