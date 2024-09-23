@@ -40,6 +40,7 @@ namespace AlphaMesh
       std::vector<ALLEGRO_VERTEX> build_mesh__run_length_encoding_by_rows();
       std::vector<ALLEGRO_VERTEX> build_mesh__run_length_encoding_by_columns();
       std::vector<ALLEGRO_VERTEX> build_mesh__collapse_columns_rows();
+      std::vector<ALLEGRO_VERTEX> build_mesh__collapse_rows_columns();
       AllegroFlare::TileMaps::TileMap<bool> build_tile_mask();
    };
 }
