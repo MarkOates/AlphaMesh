@@ -350,11 +350,11 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
 
          if (close_rectangle_horizontally)
          {
-            /*
+            ///*
             bool should_collapse_down = false; //all_cells_directly_below_are_solid(
-            do
-            {
-               bool should_collapse_down = all_cells_directly_below_are_solid(
+            //do
+            //{
+               should_collapse_down = all_cells_directly_below_are_solid(
                   rect_row1,
                   rect_column1,
                   rect_row2,
@@ -379,6 +379,9 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
                   rect_y2 = y2;
                   //rect_column2 = column;
                   //rect_row2 = row;
+                  std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
+                  result.insert(result.end(), quad.begin(), quad.end());
+                  state_assembling_rectangle = false;
                }
                else
                {
@@ -386,12 +389,12 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_columns_rows()
                   result.insert(result.end(), quad.begin(), quad.end());
                   state_assembling_rectangle = false;
                }
-            } while(should_collapse_down);
-            */
+            //} while(should_collapse_down);
+            //*/
 
-            std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
-            result.insert(result.end(), quad.begin(), quad.end());
-            state_assembling_rectangle = false;
+            //std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
+            //result.insert(result.end(), quad.begin(), quad.end());
+            //state_assembling_rectangle = false;
          }
       }
    }
