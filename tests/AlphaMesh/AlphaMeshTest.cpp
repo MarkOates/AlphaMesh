@@ -480,7 +480,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
 
 
 TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
-   CAPTURE__build_mesh__collapse_rows_columns___will_produce_expected_triangles)
+   CAPTURE__INTERACTIVE__build_mesh__collapse_rows_columns___will_produce_expected_triangles)
 {
    int num_rows = 32;
    int num_columns = 16;
@@ -601,66 +601,6 @@ TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
    }
 
    al_flip_display();
-   sleep_for(1);
 }
-
-
-
-/*
-std::vector<Rectangle> find_rectangles(std::vector<std::vector<int>> &grid)
-{
-   int rows = grid.size();
-   int cols = grid[0].size();
-   std::vector<Rectangle> rectangles;
-
-   for (int i = 0; i < rows; ++i)
-   {
-      for (int j = 0; j < cols; ++j)
-      {
-         if (grid[i][j] == 1)  // Found a full tile
-         {
-            // Start expanding the rectangle
-            int x2 = i;
-            int y2 = j;
-
-            // Expand downwards as long as the column contains full tiles
-            while (x2 < rows && grid[x2][j] == 1)
-            {
-               ++x2;
-            }
-            --x2;  // Adjust to the last valid row
-
-            // Expand rightwards for each row
-            bool valid = true;
-            while (y2 < cols && valid)
-            {
-               for (int k = i; k <= x2; ++k)
-               {
-                  if (grid[k][y2] == 0)
-                  {
-                     valid = false;
-                     break;
-                  }
-               }
-               if (valid)
-               {
-                  ++y2;
-               }
-            }
-            --y2;  // Adjust to the last valid column
-
-            // Record the rectangle
-            rectangles.push_back({i, j, x2, y2});
-
-            // Mark all tiles inside this rectangle as processed
-            mark_rectangle(grid, i, j, x2, y2);
-         }
-      }
-   }
-
-   return rectangles;
-}
-*/
-
 
 
