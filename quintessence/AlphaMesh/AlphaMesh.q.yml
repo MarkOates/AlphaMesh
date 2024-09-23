@@ -262,7 +262,7 @@ methods:
                }
             }
 
-            if (at_last_column) close_rectangle = true;
+            if (state_assembling_rectangle && at_last_column) close_rectangle = true;
 
             if (close_rectangle)
             {
@@ -333,7 +333,7 @@ methods:
                }
             }
 
-            if (at_last_row) close_rectangle = true;
+            if (state_assembling_rectangle && at_last_row) close_rectangle = true;
 
             if (close_rectangle)
             {
@@ -539,7 +539,7 @@ methods:
                }
             }
 
-            if (at_last_row) close_rectangle_vertically = true;
+            if (state_assembling_rectangle && at_last_row) close_rectangle_vertically = true;
 
             if (close_rectangle_vertically)
             {

@@ -508,6 +508,8 @@ TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
    hit.b *= op;
    hit.a *= op;
 
+   auto mesh = alpha_mesh.build_mesh__collapse_columns_rows();
+
    int start_i = 0;
 
    while(interactive_test_wait_for_event())
@@ -518,15 +520,17 @@ TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
          case ALLEGRO_EVENT_KEY_CHAR: {
             switch(current_event.keyboard.keycode)
             {
-               case ALLEGRO_KEY_RIGHT:
+               case ALLEGRO_KEY_RIGHT: {
                   start_i += 3;
-                  // TODO: Bound limit start_i on last vertex
-               break;
+                  // Limit the start_i to the (last vertex - 3)
+                  int last_viable_i = (mesh.size() - 1) - 2;
+                  if (start_i > last_viable_i) start_i = last_viable_i;
+               } break;
 
-               case ALLEGRO_KEY_LEFT:
+               case ALLEGRO_KEY_LEFT: {
                   start_i -= 3;
                   if (start_i < 0) start_i=0;
-               break;
+               } break;
             }
          } break;
 
@@ -562,9 +566,8 @@ TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
             }
 
 
-
             // Draw the mesh
-            auto mesh = alpha_mesh.build_mesh__collapse_columns_rows();
+            //auto mesh = alpha_mesh.build_mesh__collapse_columns_rows();
             al_draw_prim(&mesh[0], nullptr, bitmap, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
             // Draw the lines in the mesh
@@ -588,7 +591,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
             al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12+lh*2, 0, "columns: %d", alpha_mesh.get_num_columns());
             al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12+lh*3, 0, "start_i: %d", start_i);
             al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12+lh*4, 0, "  first_vertex_i: %d", start_i);
-            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12+lh*4, 0, "  last_vertex_i: %d", start_i+2);
+            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12+lh*5, 0, "  last_vertex_i: %d", start_i+2);
 
 
             al_flip_display();

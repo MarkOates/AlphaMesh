@@ -218,7 +218,7 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__run_length_encoding_by_rows()
             }
          }
 
-         if (at_last_column) close_rectangle = true;
+         if (state_assembling_rectangle && at_last_column) close_rectangle = true;
 
          if (close_rectangle)
          {
@@ -288,7 +288,7 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__run_length_encoding_by_column
             }
          }
 
-         if (at_last_row) close_rectangle = true;
+         if (state_assembling_rectangle && at_last_row) close_rectangle = true;
 
          if (close_rectangle)
          {
@@ -492,7 +492,7 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__collapse_rows_columns()
             }
          }
 
-         if (at_last_row) close_rectangle_vertically = true;
+         if (state_assembling_rectangle && at_last_row) close_rectangle_vertically = true;
 
          if (close_rectangle_vertically)
          {
