@@ -37,6 +37,7 @@ namespace AlphaMesh
       static std::vector<ALLEGRO_VERTEX> assemble_quad(float x=0, float y=0, float x2=0, float y2=0);
       std::vector<ALLEGRO_VERTEX> build_mesh();
       std::vector<ALLEGRO_VERTEX> build_mesh__run_length_encoding_by_rows();
+      std::vector<ALLEGRO_VERTEX> build_mesh__run_length_encoding_by_columns();
       AllegroFlare::TileMaps::TileMap<bool> build_tile_mask();
    };
 }

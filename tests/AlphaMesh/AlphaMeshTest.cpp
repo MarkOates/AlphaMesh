@@ -168,25 +168,57 @@ TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
    //*/
 
 
-   // Draw the mesh
-   auto mesh = alpha_mesh.build_mesh__run_length_encoding_by_rows();
-   al_draw_prim(&mesh[0], nullptr, bitmap, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   ALLEGRO_TRANSFORM subject_position_transform;
 
-   ALLEGRO_FONT *font = get_any_font();
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12, 0, "vertices: %d", mesh.size());
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 36, 0, "rows: %d", alpha_mesh.get_num_rows());
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 62, 0, "columns: %d", alpha_mesh.get_num_columns());
-   //al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12, 0, "vertices: %d", mesh.size());
-
-   // Draw the lines in the mesh
-   ALLEGRO_COLOR orange = al_color_name("orange");
-   for (int vertex_i=2; vertex_i<mesh.size(); vertex_i+=3)
+   // Draw the mesh (optimized by rows)
    {
-      al_draw_line(mesh[vertex_i-2].x, mesh[vertex_i-2].y, mesh[vertex_i-1].x, mesh[vertex_i-1].y, orange, 2.0);
-      al_draw_line(mesh[vertex_i-1].x, mesh[vertex_i-1].y, mesh[vertex_i-0].x, mesh[vertex_i-0].y, orange, 2.0);
-      al_draw_line(mesh[vertex_i-0].x, mesh[vertex_i-0].y, mesh[vertex_i-2].x, mesh[vertex_i-2].y, orange, 2.0);
+      al_copy_transform(&subject_position_transform, &camera_transform);
+      al_translate_transform(&subject_position_transform, -500, 0);
+      al_use_transform(&subject_position_transform);
+
+      auto mesh = alpha_mesh.build_mesh__run_length_encoding_by_rows();
+      al_draw_prim(&mesh[0], nullptr, bitmap, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+      ALLEGRO_FONT *font = get_any_font();
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12, 0, "vertices: %d", mesh.size());
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 36, 0, "rows: %d", alpha_mesh.get_num_rows());
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 62, 0, "columns: %d", alpha_mesh.get_num_columns());
+      //al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12, 0, "vertices: %d", mesh.size());
+
+      // Draw the lines in the mesh
+      ALLEGRO_COLOR orange = al_color_name("orange");
+      for (int vertex_i=2; vertex_i<mesh.size(); vertex_i+=3)
+      {
+         al_draw_line(mesh[vertex_i-2].x, mesh[vertex_i-2].y, mesh[vertex_i-1].x, mesh[vertex_i-1].y, orange, 2.0);
+         al_draw_line(mesh[vertex_i-1].x, mesh[vertex_i-1].y, mesh[vertex_i-0].x, mesh[vertex_i-0].y, orange, 2.0);
+         al_draw_line(mesh[vertex_i-0].x, mesh[vertex_i-0].y, mesh[vertex_i-2].x, mesh[vertex_i-2].y, orange, 2.0);
+      }
    }
-   //al_draw_prim(&mesh[0], nullptr, bitmap, 0, mesh.size(), ALLEGRO_PRIM_LINE_LIST);
+
+   // Draw the mesh (optimized by columns)
+   {
+      al_copy_transform(&subject_position_transform, &camera_transform);
+      al_translate_transform(&subject_position_transform, 500, 0);
+      al_use_transform(&subject_position_transform);
+
+      auto mesh = alpha_mesh.build_mesh__run_length_encoding_by_columns();
+      al_draw_prim(&mesh[0], nullptr, bitmap, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+      ALLEGRO_FONT *font = get_any_font();
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12, 0, "vertices: %d", mesh.size());
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 36, 0, "rows: %d", alpha_mesh.get_num_rows());
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 62, 0, "columns: %d", alpha_mesh.get_num_columns());
+      //al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 18, 12, 0, "vertices: %d", mesh.size());
+
+      // Draw the lines in the mesh
+      ALLEGRO_COLOR orange = al_color_name("orange");
+      for (int vertex_i=2; vertex_i<mesh.size(); vertex_i+=3)
+      {
+         al_draw_line(mesh[vertex_i-2].x, mesh[vertex_i-2].y, mesh[vertex_i-1].x, mesh[vertex_i-1].y, orange, 2.0);
+         al_draw_line(mesh[vertex_i-1].x, mesh[vertex_i-1].y, mesh[vertex_i-0].x, mesh[vertex_i-0].y, orange, 2.0);
+         al_draw_line(mesh[vertex_i-0].x, mesh[vertex_i-0].y, mesh[vertex_i-2].x, mesh[vertex_i-2].y, orange, 2.0);
+      }
+   }
 
    al_flip_display();
    sleep_for(1);

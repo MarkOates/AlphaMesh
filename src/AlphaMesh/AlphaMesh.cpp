@@ -188,6 +188,76 @@ std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__run_length_encoding_by_rows()
    return result;
 }
 
+std::vector<ALLEGRO_VERTEX> AlphaMesh::build_mesh__run_length_encoding_by_columns()
+{
+   AllegroFlare::TileMaps::TileMap<bool> tile_mask = build_tile_mask();
+
+   std::vector<ALLEGRO_VERTEX> result;
+
+   float rect_x1 = 0;
+   float rect_y1 = 0;
+   float rect_x2 = 0;
+   float rect_y2 = 0;
+   bool state_assembling_rectangle = false;
+
+   for (int column=0; column<tile_mask.get_num_columns(); column++)
+   {
+   //for (int row=0; row<tile_mask.get_num_rows(); row++)
+   //{
+      state_assembling_rectangle = false;
+
+      //for (int column=0; column<tile_mask.get_num_columns(); column++)
+      //{
+      for (int row=0; row<tile_mask.get_num_rows(); row++)
+      {
+         bool at_last_row = (row == tile_mask.get_num_rows() - 1);
+         bool is_solid = tile_mask.get_tile(column, row);
+         bool close_rectangle = false;
+
+         if (is_solid)
+         {
+            if (!state_assembling_rectangle)
+            {
+               float x1 = column * cell_width;
+               float y1 = row * cell_height;
+               rect_x1 = x1;
+               rect_y1 = y1;
+               state_assembling_rectangle = true;
+            }
+            else
+            {
+               float x2 = (column+1) * cell_width;
+               float y2 = (row+1) * cell_height;
+               rect_x2 = x2;
+               rect_y2 = y2;
+            }
+         }
+         else
+         {
+            if (state_assembling_rectangle)
+            {
+               close_rectangle = true;
+            }
+            else
+            {
+               // Nothing to do, consecutive empty tiles
+            }
+         }
+
+         if (at_last_row) close_rectangle = true;
+
+         if (close_rectangle)
+         {
+            std::vector<ALLEGRO_VERTEX> quad = assemble_quad(rect_x1, rect_y1, rect_x2, rect_y2);
+            result.insert(result.end(), quad.begin(), quad.end());
+            state_assembling_rectangle = false;
+         }
+      }
+   }
+
+   return result;
+}
+
 AllegroFlare::TileMaps::TileMap<bool> AlphaMesh::build_tile_mask()
 {
    if (!(bitmap))
