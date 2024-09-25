@@ -604,7 +604,7 @@ TEST_F(AlphaMesh_AlphaMeshTestWithInteractionFixture,
 
 
 TEST_F(AlphaMesh_AlphaMeshTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__audit_on_specific_bitmaps)
+   CAPTURE__audit_on_specific_bitmaps)
 {
    int num_rows = 32*2;
    int num_columns = 16*2;
